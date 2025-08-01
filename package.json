@@ -1,0 +1,23 @@
+{
+  "name": "iptv-util",
+  "version": "0.1.1",
+  "description": "iptv utilities",
+  "keywords": [
+    "iptv"
+  ],
+  "homepage": "https://github.com/sefakozan/iptv-util#readme",
+  "bugs": {
+    "url": "https://github.com/sefakozan/iptv-util/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sefakozan/iptv-util.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Sefa Kozan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
