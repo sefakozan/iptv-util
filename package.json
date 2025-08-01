@@ -27,8 +27,9 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@iptv/playlist": "^1.2.0",
     "axios": "^1.11.0",
     "execa": "^9.6.0",
-    "ffmpeg-static": "^5.2.0"
+    "ffprobe-static": "^3.1.0"
   }
 }
