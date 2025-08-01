@@ -14,6 +14,17 @@
       "args": ["run", "${relativeFile}"],
       "smartStep": true,
       "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug example.js",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/example/example.js",
+      "smartStep": true,
+      "console": "integratedTerminal"
     }
   ]
 }
