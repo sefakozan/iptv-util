@@ -794,3 +794,16 @@ https://edge1.socialsmart.tv/caytv/bant1/playlist.m3u8
 http://1hskrdto.rocketcdn.com/fenerbahcetv.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="TJKTV2.tr@SD",TJK TV 2 (1080p) [Not 24/7]
 https://tjktv-live.tjk.org/tjktv2/tjktv2.m3u8`
+
+const lineArr = trlist.split(/\r\n|\n|\r/)
+
+for (const line of lineArr) {
+  if (line.startsWith('http')) {
+    const isExits = await check(line)
+    if (isExits) {
+      console.log('okey ' + line)
+    } else {
+      console.log('not okey ' + line)
+    }
+  }
+}

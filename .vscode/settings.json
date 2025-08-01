@@ -16,7 +16,8 @@
         ]
     },
     "standard.workingDirectories": [
-        "src/**/*.js"
+        "src/**/*.js",
+        "example/**/*.js"
     ],
     "files.autoSave": "onFocusChange",
     "editor.formatOnSave": false,
