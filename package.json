@@ -3,7 +3,14 @@
   "version": "0.1.2",
   "description": "iptv utilities",
   "keywords": [
-    "iptv"
+    "iptv",
+    "playlist",
+    "m3u",
+    "m3u8",
+    "m3u parser",
+    "m3u generator",
+    "iptv checker",
+    "m3u checker"
   ],
   "homepage": "https://github.com/sefakozan/iptv-util#readme",
   "bugs": {
@@ -19,15 +26,18 @@
   "main": "src/index.js",
   "scripts": {
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "benchmark": "vitest bench --reporter=verbose"
   },
   "devDependencies": {
+    "@iptv/playlist": "^1.2.0",
     "@vitest/coverage-v8": "^3.2.4",
+    "iptv-playlist-parser": "^0.15.0",
+    "m3u-parser-generator": "^5.0.1",
     "standard": "*",
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@iptv/playlist": "^1.2.0",
     "axios": "^1.11.0",
     "execa": "^9.6.0",
     "ffprobe-static": "^3.1.0"
