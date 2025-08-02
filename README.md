@@ -19,11 +19,14 @@
    - **`merger`**: Assumed to combine multiple M3U playlists into one, handling duplicates or formatting.   
 
 ## Similar Packages
-* [@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist) has parsing error
-* [iptv-playlist-parser](https://www.npmjs.com/package/iptv-playlist-parser) parsing error
-* [esx-iptv-playlist-parser](https://www.npmjs.com/package/esx-iptv-playlist-parser) buggy, no tests
-* [iptv-checker](https://www.npmjs.com/package/iptv-checker) using native binary
-* [iptv-playlist-generator](https://www.npmjs.com/package/iptv-playlist-generator) not compatiple with own parser
+#### [@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist)  Fails to handle some M3U formats, lacking essential features like merging and validation.
+#### [iptv-playlist-parser](https://www.npmjs.com/package/iptv-playlist-parser) Some parsing bugs, offering no generation and validation capabilities. 
+#### [esx-iptv-playlist-parser](https://www.npmjs.com/package/esx-iptv-playlist-parser) A buggy, untested mess with no recent updates.  
+#### [iptv-checker](https://www.npmjs.com/package/iptv-checker) Crippled by FFmpeg dependency, missing parsing and generation. 
+#### [iptv-playlist-generator](https://www.npmjs.com/package/iptv-playlist-generator) Incompatible with its own parser, missing validation. 
+#### [iptv-checker-module](https://www.npmjs.com/package/iptv-checker-module) It’s a clunky, single-purpose module.
+
+
 
 
 ### Performance
