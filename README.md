@@ -9,7 +9,6 @@
 [![License](https://img.shields.io/npm/l/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
 </div>
 
-
 > **Pure Javascript cross-platform module to manage m3u iptv playlist**
 
 **Functionalities**:
