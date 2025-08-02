@@ -1,77 +1,69 @@
 import { parser, Playlist, Link, checker, merger, url2text } from '../src/index.js'
-import fs from 'node:fs/promises'
+import fs from 'node:fs'
 
-// 1. Parse an M3U file
-async function parseExample () {
-  try {
-    const m3uContent = await fs.readFile('playlist.m3u', 'utf8')
-    const playlist = parser(m3uContent)
-    console.log('Parsed Playlist JSON:', playlist.toJson())
-  } catch (error) {
-    console.error('Parse Error:', error.message)
-  }
+// 1. Parse and Check an Existing Playlist
+// Read M3U playlist from file
+const m3uContent = fs.readFileSync('playlist.m3u', 'utf8')
+
+// Parse M3U content into a Playlist object
+const playlist = parser(m3uContent)
+
+// Check playlist for valid streams
+const cleanPlaylist = await playlist.check()
+const cleanText = cleanPlaylist.toText() // Online links only
+const cleanJson = cleanPlaylist.toJson() // JSON format of online links
+fs.writeFileSync('clean_playlist.m3u', cleanText, 'utf8') // Save cleaned playlist
+
+// Log offline and online links
+console.log('Offline Links:', cleanPlaylist.offline)
+console.log('Online Links:', cleanPlaylist.links)
+
+// 2. Check a Single Stream
+const streamUrl = 'https://demiroren-live.daioncdn.net/kanald/kanald.m3u8'
+const isOnline = await checker(streamUrl) // Check if stream is online
+console.log(`Stream ${streamUrl} is ${isOnline ? 'online' : 'offline'}`)
+
+// 3. Fetch and Parse Playlist from URL
+const remoteUrl = 'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_samsung.m3u'
+const remoteM3u = await url2text(remoteUrl) // Fetch M3U content from URL
+const remotePlaylist = parser(remoteM3u) // Parse into Playlist object
+fs.writeFileSync('remote_playlist.m3u', remotePlaylist.toText(), 'utf8') // Save to file
+
+// 4. Create a New Playlist
+const newPlaylist = new Playlist()
+newPlaylist.header = {
+  'x-tvg-url': 'http://example.com/epg.xml',
+  'url-tvg': 'http://example.com/tvg'
 }
 
-// 2. Generate a new M3U playlist
-function generateExample () {
-  const playlist = new Playlist()
-  const link1 = new Link({
-    url: 'http://example.com/stream1.m3u8',
-    title: 'Channel 1',
-    attributes: { 'tvg-id': 'channel1', 'group-title': 'Entertainment' }
-  })
-  const link2 = new Link({
-    url: 'http://example.com/stream2.m3u8',
-    title: 'Channel 2',
-    attributes: { 'tvg-id': 'channel2', 'group-title': 'Sports' }
-  })
-  playlist.addLink(link1)
-  playlist.addLink(link2)
-
-  const m3uText = playlist.toText()
-  fs.writeFile('generated-playlist.m3u', m3uText)
-  console.log('Generated M3U:', m3uText)
+// Create and configure a new link
+const link = new Link('http://example.com/stream1.m3u8')
+link.title = 'Sample Channel'
+link.duration = -1 // Live stream
+link.extinf = {
+  'tvg-id': 'sample1',
+  'group-title': 'Entertainment'
 }
-
-// 3. Check URLs in a playlist and a single link
-async function checkExample () {
-  try {
-    // Check a single URL using checker
-    const isOnline = await checker('http://example.com/stream1.m3u8')
-    console.log('Single URL Status:', isOnline ? 'Online' : 'Offline')
-
-    // Check an entire playlist
-    const m3uContent = await fs.readFile('playlist.m3u', 'utf8')
-    const playlist = parser(m3uContent)
-    const checkedPlaylist = await playlist.check()
-    console.log('Online Channels:', checkedPlaylist.links.length)
-    console.log('Offline Channels:', checkedPlaylist.offline.length)
-    await fs.writeFile('online-playlist.m3u', checkedPlaylist.toText())
-  } catch (error) {
-    console.error('Check Error:', error.message)
-  }
+link.extgrp = 'Sports'
+link.extvlcopt = {
+  'http-user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
 }
+newPlaylist.addLink(link) // Add link to playlist
 
-// 4. Merge multiple playlists
-async function mergeExample () {
-  try {
-    const playlist1 = await fs.readFile('playlist1.m3u', 'utf8')
-    const playlist2 = await url2text('https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk.m3u')
-    const mergedPlaylist = await merger([playlist1, playlist2])
-    await fs.writeFile('merged-playlist.m3u', mergedPlaylist.toText())
-    console.log('Merged Playlist:', mergedPlaylist.toJson())
-  } catch (error) {
-    console.error('Merge Error:', error.message)
-  }
-}
+// Save new playlist
+fs.writeFileSync('new_playlist.m3u', newPlaylist.toText(), 'utf8')
 
-// Run all examples
-async function main () {
-  console.log('=== IPTV-Util Quickstart ===')
-  await parseExample()
-  generateExample()
-  await checkExample()
-  await mergeExample()
-}
+// 5. Merge Playlists
+const playlist1 = fs.readFileSync('playlist1.m3u', 'utf8')
+const playlist2 = fs.readFileSync('playlist2.m3u', 'utf8')
+const mergedPlaylist = await merger(playlist1, playlist2) // Merge local playlists
+const mergedText = mergedPlaylist.toText()
+fs.writeFileSync('merged_playlist.m3u', mergedText, 'utf8') // Save merged playlist
 
-main().catch(console.error)
+// Check merged playlist for valid streams
+const cleanMerged = await mergedPlaylist.check()
+fs.writeFileSync('clean_merged_playlist.m3u', cleanMerged.toText(), 'utf8')
+
+// Log results
+console.log('Merged Playlist Saved:', mergedText)
+console.log('Clean Merged Playlist Links:', cleanMerged.links)
