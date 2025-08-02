@@ -21,8 +21,30 @@
       "name": "Debug example.js",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/example",
       "program": "${workspaceFolder}/example/example.js",
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug merge-example.js",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "cwd": "${workspaceFolder}/example",
+      "program": "${workspaceFolder}/example/merge-example.js",
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug parser-example.js",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "cwd": "${workspaceFolder}/example",
+      "program": "${workspaceFolder}/example/parser-example.js",
       "smartStep": true,
       "console": "integratedTerminal"
     }
