@@ -1,12 +1,12 @@
 {
   "name": "iptv-util",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "iptv-util",
-      "version": "1.1.6",
+      "version": "1.1.7",
       "license": "Apache-2.0",
       "dependencies": {
         "axios": "^1.11.0",

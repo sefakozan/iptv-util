@@ -58,6 +58,17 @@
       "program": "${workspaceFolder}/example/parser-exp.js",
       "smartStep": true,
       "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "quickstart.js",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "cwd": "${workspaceFolder}/example",
+      "program": "${workspaceFolder}/example/quickstart.js",
+      "smartStep": true,
+      "console": "integratedTerminal"
     }
   ]
 }

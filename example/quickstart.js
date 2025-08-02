@@ -1,4 +1,4 @@
-import { parser, Playlist, Link, checker, merger, url2text } from 'iptv-util'
+import { parser, Playlist, Link, checker, merger, url2text } from '../src/index.js'
 import fs from 'node:fs/promises'
 
 // 1. Parse an M3U file
