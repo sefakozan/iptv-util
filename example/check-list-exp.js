@@ -1,4 +1,4 @@
-import { checker, parser } from '../src/index.js'
+import { checker, parser } from "../src/index.js";
 
 const trlist = `#EXTM3U
 #EXTINF:-1 tvg-id="24TV.tr",24 TV (1080p)
@@ -793,15 +793,15 @@ https://edge1.socialsmart.tv/caytv/bant1/playlist.m3u8
 #EXTINF:-1 tvg-id="FBTV.tr@SD",FB TV
 http://1hskrdto.rocketcdn.com/fenerbahcetv.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="TJKTV2.tr@SD",TJK TV 2 (1080p) [Not 24/7]
-https://tjktv-live.tjk.org/tjktv2/tjktv2.m3u8`
+https://tjktv-live.tjk.org/tjktv2/tjktv2.m3u8`;
 
-const playlist = parser(trlist)
+const playlist = parser(trlist);
 
 for (const link of playlist.links) {
-  const isExits = await checker(link.url)
-  if (isExits) {
-    console.log('okey ' + link.url)
-  } else {
-    console.log('not okey ' + link.url)
-  }
+	const isExits = await checker(link.url);
+	if (isExits) {
+		console.log("okey " + link.url);
+	} else {
+		console.log("not okey " + link.url);
+	}
 }

@@ -14,3 +14,15 @@ Follow these steps to contribute to the project:
    ```bash
    git clone https://github.com/YOUR-USERNAME/iptv-util.git
    ```
+
+## Scripts
+
+Aşağıdaki script'ler, proje geliştirme sürecini kolaylaştırmak için `package.json` dosyasında tanımlanmıştır:
+
+- **`npm run test`**: Vitest ile tüm testleri çalıştırır ve sonuçları raporlar.
+- **`npm run coverage`**: Vitest ile testleri çalıştırır ve kod kapsayıcılık (coverage) raporunu oluşturur.
+- **`npm run benchmark`**: Vitest ile performans testlerini (benchmarks) çalıştırır ve detaylı bir rapor sunar.
+- **`npm run format`**: Biome ile tüm proje dosyalarını formatlar (ör. girinti, satır uzunluğu) ve değişiklikleri kaydeder.
+- **`npm run format:all`**: Biome ile tüm dosyaları formatlar, linting hatalarını düzeltir ve import'ları sıralar (eğer etkinse).
+- **`npm run format:check`**: Biome ile formatlama ve linting sorunlarını kontrol eder, ancak değişiklik yapmaz.
+- **`npm run lint`**: Biome ile yalnızca linting kurallarını (kod kalitesi) kontrol eder, formatlama yapmaz.

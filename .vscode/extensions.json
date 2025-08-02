@@ -1,6 +1,3 @@
 {
-    "recommendations": [
-        "vitest.explorer",
-        "biomejs.biome"
-    ]
+	"recommendations": ["vitest.explorer", "biomejs.biome"]
 }

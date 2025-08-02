@@ -34,7 +34,10 @@
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
 		"benchmark": "vitest bench --reporter=verbose",
-		"format": "biome format --write ."
+		"format": "biome format --write .",
+		"format:all": "biome check --write .",
+		"format:check": "biome check .",
+		"lint": "biome lint ."
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.3",

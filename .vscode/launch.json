@@ -1,74 +1,74 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Vitest",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
-      "args": ["run", "${relativeFile}"],
-      "smartStep": true,
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "check-exp.js",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/check-exp.js",
-      "smartStep": true,
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "check-list-exp.js",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/check-list-exp.js",
-      "smartStep": true,
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "merge-exp.js",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/merge-exp.js",
-      "smartStep": true,
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "parse-exp.js",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/parser-exp.js",
-      "smartStep": true,
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "quickstart.js",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/quickstart.js",
-      "smartStep": true,
-      "console": "integratedTerminal"
-    }
-  ]
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug Vitest",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+			"args": ["run", "${relativeFile}"],
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "check-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}/example",
+			"program": "${workspaceFolder}/example/check-exp.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "check-list-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}/example",
+			"program": "${workspaceFolder}/example/check-list-exp.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "merge-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}/example",
+			"program": "${workspaceFolder}/example/merge-exp.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "parse-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}/example",
+			"program": "${workspaceFolder}/example/parser-exp.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "quickstart.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}/example",
+			"program": "${workspaceFolder}/example/quickstart.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		}
+	]
 }
