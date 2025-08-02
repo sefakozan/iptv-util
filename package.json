@@ -1,6 +1,6 @@
 {
   "name": "iptv-util",
-  "version": "0.1.2",
+  "version": "1.1.2",
   "description": "iptv utilities",
   "keywords": [
     "iptv",
@@ -32,8 +32,8 @@
   "devDependencies": {
     "@iptv/playlist": "^1.2.0",
     "@vitest/coverage-v8": "^3.2.4",
+    "esx-iptv-playlist-parser": "^0.1.1",
     "iptv-playlist-parser": "^0.15.0",
-    "m3u-parser-generator": "^5.0.1",
     "standard": "*",
     "vitest": "^3.2.4"
   },

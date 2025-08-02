@@ -4,12 +4,10 @@ import { describe, bench } from 'vitest'
 import { parser } from '../src/index'
 import { parseM3U } from '@iptv/playlist'
 import ippParser from 'iptv-playlist-parser'
-import { M3uParser } from 'm3u-parser-generator'
-
-const m3uParser = new M3uParser()
+import esxParser from 'esx-iptv-playlist-parser'
 
 const playlistString = fs.readFileSync(
-  path.join(path.resolve(), 'test/files/small.m3u'),
+  path.join(path.resolve(), 'test/files/large.m3u'),
   'utf8'
 )
 
@@ -17,7 +15,7 @@ describe('Parsing Files', () => {
   bench('iptv-util', () => {
     parser(playlistString)
   })
-  bench('@iptv/playlist parseM3U', () => {
+  bench('@iptv/playlist', () => {
     parseM3U(playlistString)
   })
 
@@ -25,7 +23,7 @@ describe('Parsing Files', () => {
     ippParser.parse(playlistString)
   })
 
-  bench('m3u-parser-generator', () => {
-    m3uParser.parse(playlistString)
+  bench('esx-iptv-playlist-parser', () => {
+    esxParser.parse(playlistString)
   })
 })
