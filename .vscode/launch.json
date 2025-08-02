@@ -18,33 +18,44 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug example.js",
+      "name": "check-exp.js",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/example.js",
+      "program": "${workspaceFolder}/example/check-exp.js",
       "smartStep": true,
       "console": "integratedTerminal"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug merge-example.js",
+      "name": "check-list-exp.js",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/merge-example.js",
+      "program": "${workspaceFolder}/example/check-list-exp.js",
       "smartStep": true,
       "console": "integratedTerminal"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug parser-example.js",
+      "name": "merge-exp.js",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/parser-example.js",
+      "program": "${workspaceFolder}/example/merge-exp.js",
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "parse-exp.js",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "cwd": "${workspaceFolder}/example",
+      "program": "${workspaceFolder}/example/parse-exp.js",
       "smartStep": true,
       "console": "integratedTerminal"
     }

@@ -1,5 +1,8 @@
+import { checker } from './checker.js'
+
 class Playlist {
   #urlSet = new Set()
+  offline = []
 
   constructor () {
     this.header = {
@@ -15,6 +18,27 @@ class Playlist {
       this.#urlSet.add(link.url)
       this.links.push(link)
     }
+  }
+
+  async check (max = Number.MAX_SAFE_INTEGER) {
+    const online = []
+    let counter = 0
+    for (const link of this.links) {
+      counter++
+      const isWorking = await checker(link.url)
+      if (isWorking) {
+        online.push(link)
+        console.log(`online: ${link.url}`)
+      } else {
+        this.offline.push(link)
+        console.log(`offline: ${link.url}`)
+      }
+      if (counter > max) break
+    }
+
+    console.log(`offline link count: ${this.offline.length}`)
+    console.log(`online link count: ${online.length}`)
+    this.links = online
   }
 
   toText () {
@@ -50,7 +74,7 @@ function generateText (links = [], header = {}) {
   for (const attr in header) {
     if (attr === 'raw') continue
     const value = header[attr]
-    output += ` ${attr}="${value}"`
+    if (value) output += ` ${attr}="${value}"`
   }
 
   for (const link of links) {
