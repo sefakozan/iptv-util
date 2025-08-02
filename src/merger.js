@@ -5,7 +5,7 @@ import { Playlist } from './generator.js'
 export async function merger (...urls) {
   const textArr = []
   for (const url of urls) {
-    const text = await url2text(url)
+    const text = url.startsWith('http') ? await url2text(url) : url
     textArr.push(text)
   }
   const resultPlaylist = new Playlist()

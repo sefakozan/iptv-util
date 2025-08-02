@@ -55,7 +55,7 @@
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "cwd": "${workspaceFolder}/example",
-      "program": "${workspaceFolder}/example/parse-exp.js",
+      "program": "${workspaceFolder}/example/parser-exp.js",
       "smartStep": true,
       "console": "integratedTerminal"
     }
