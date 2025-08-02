@@ -21,24 +21,24 @@ class Playlist {
   }
 
   async check (max = Number.MAX_SAFE_INTEGER) {
-    const online = []
+    const cleanPlaylist = new Playlist()
     let counter = 0
     for (const link of this.links) {
       counter++
       const isWorking = await checker(link.url)
       if (isWorking) {
-        online.push(link)
+        cleanPlaylist.addLink(link)
         console.log(`online: ${link.url}`)
       } else {
-        this.offline.push(link)
+        cleanPlaylist.offline.push(link)
         console.log(`offline: ${link.url}`)
       }
       if (counter > max) break
     }
 
-    console.log(`offline link count: ${this.offline.length}`)
-    console.log(`online link count: ${online.length}`)
-    this.links = online
+    console.log(`offline link count: ${cleanPlaylist.offline.length}`)
+    console.log(`online link count: ${cleanPlaylist.links.length}`)
+    return cleanPlaylist
   }
 
   toText () {

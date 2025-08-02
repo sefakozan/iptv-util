@@ -63,115 +63,163 @@ The `iptv-util` library provides tools to parse, generate, check, and merge IPTV
 Use the parser function to parse an M3U playlist file into a structured format.
 
 
-```js
+```javascript
 import { parser } from 'iptv-util'
 import fs from 'node:fs'
 
-// Read and parse an M3U file
-const m3uContent = fs.readFileSync('playlist.m3u', 'utf8');
-
-
-// parser return Playlist object
+// Read the M3U playlist file from the filesystem
+const m3uContent = fs.readFileSync('playlist.m3u', 'utf8')
+// Parse the M3U content using the iptv-util parser to create a Playlist object
 const playlist = parser(m3uContent)
 
-const text = playlist.toText()
+// Convert the Playlist object to a JSON representation
 const json = playlist.toJson()
+// Convert the Playlist object back to its M3U text representation
+const text = playlist.toText()
+// Save the converted M3U text to a new file named 'output_playlist.m3u'
+fs.writeFileSync('output_playlist.m3u', text, 'utf8')
 
-// to check playlist
-
-const playlist = await playlist.check()
-const onlineOnly = playlist.toText()
-
+// Check the playlist for working streams and return a cleaned Playlist object
+const cleanPlaylist = await playlist.check()
+// Convert the cleaned Playlist object to its M3U text representation
+const onlineOnly = cleanPlaylist.toText()
+// Save the cleaned M3U text to a new file named 'online_playlist.m3u'
+fs.writeFileSync('online_playlist.m3u', onlineOnly, 'utf8')
+// Access offline array
+const offlineArr = cleanPlaylist.offline
 ```
 
 ### Generator
 Use the Playlist and Link classes to create a new M3U playlist programmatically.
 
 
-```js
+```javascript
 import { Playlist, Link } from 'iptv-util'
 import fs from 'node:fs'
 
-// Create a new playlist
-const playlist = new Playlist();
+// Create a new Playlist instance
+const playlist = new Playlist()
 
-// Add channels to the playlist
-const link1 = new Link({
-  url: 'http://example.com/stream1.m3u8',
-  title: 'Channel 1',
-  attributes: { 'tvg-id': 'channel1', 'group-title': 'Entertainment' }
-});
-const link2 = new Link({
-  url: 'http://example.com/stream2.m3u8',
-  title: 'Channel 2',
-  attributes: { 'tvg-id': 'channel2', 'group-title': 'Sports' }
-});
+// Set playlist header with TV guide URLs
+playlist.header = {
+  'x-tvg-url': '...',
+  'url-tvg': '...'
+}
 
-playlist.addLink(link1);
-playlist.addLink(link2);
+// Create a new Link for the first channel
+const link1 = new Link('http://example.com/stream1.m3u8')
+link1.title = 'Channel 1' // Set channel title
+link1.duration = -1 // Set duration (-1 for live stream)
+link1.extinf = {
+  'tvg-id': 'channel1', // Set TV guide ID
+  'group-title': 'Entertainment' // Set group category
+}
+link1.extgrp = 'Sports' // Set external group
+link1.extvlcopt = {
+  'http-referrer': 'http://example.com', // Set HTTP referrer
+  'http-user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' // Set user agent
+}
 
-// Generate M3U content
-const m3uText = playlist.toText();
-const m3uJson = playlist.toJson();
-console.log('Generated M3U:', m3uText);
+// Create a new Link for the second channel
+const link2 = new Link('http://example.com/stream2.m3u8')
+link2.title = 'Channel 2' // Set channel title
+link2.duration = -1 // Set duration (-1 for live stream)
+link2.extinf = {
+  'tvg-id': 'channel2', // Set TV guide ID
+  'group-title': 'Entertainment' // Set group category
+}
 
-// Save to file
-fs.writeFileSync('generated-playlist.m3u', m3uText);
+// Add links to the playlist
+playlist.addLink(link1)
+playlist.addLink(link2)
+
+// Generate M3U text and JSON representations of the playlist
+const m3uText = playlist.toText()
+const m3uJson = playlist.toJson()
+
+// Log generated M3U and JSON content
+console.log('Generated M3U:', m3uText)
+console.log('Generated JSON:', m3uJson)
+
+// Save the M3U content to a file
+fs.writeFileSync('generated-playlist.m3u', m3uText)
 ```
 
 ### Checker
 Use the checker function to validate the URLs in an M3U playlist.
 
-```js
-import { checker,url2text,parser } from 'iptv-util'
+```javascript
+import { checker, url2text, parser } from 'iptv-util'
 import fs from 'node:fs'
 
-// to check single link
-const isOnline = await checker('http://example.com/stream1.m3u8')
+// Check if a single stream URL is online
+const url1 = 'https://demiroren-live.daioncdn.net/kanald/kanald.m3u8'
+const isOnline = await checker(url1) // Returns true if the stream is working
 
-// to check entire playlist
-// load file
-const m3uContent1 = fs.readFileSync('playlist.m3u', 'utf8');
-// load from url
-const m3uContent2 = await url2text(' http://example.com/playlist.m3u')
+// Read M3U playlist content from a local file
+const m3uContent1 = fs.readFileSync('playlist.m3u', 'utf8')
+// Fetch M3U playlist content from a remote URL
+const url2 = 'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_samsung.m3u'
+const m3uContent2 = await url2text(url2)
 
+// Parse M3U content into a Playlist object
+const playlist = parser(m3uContent1) // Can also use m3uContent2
 
-const playlist = parser(m3uContent1) // m3uContent2
-
+// Check playlist for valid streams, returning a cleaned Playlist object
 const cleanPlaylist = await playlist.check()
-const text = cleanPlaylist.toText() // online only
-const json = cleanPlaylist.toJson() // online only
-const offlineArr = cleanPlaylist.offline;
-const onlineArr = cleanPlaylist.links;
+// Convert cleaned playlist to M3U text (online links only)
+const text = cleanPlaylist.toText()
+// Convert cleaned playlist to JSON (online links only)
+const json = cleanPlaylist.toJson()
+
+// Get arrays of offline and online links from the cleaned playlist
+const offlineArr = cleanPlaylist.offline
+const onlineArr = cleanPlaylist.links
 ```
 
 ### Merger
 Use the merger function to combine multiple M3U playlists into a single playlist.
 
-```js
+```javascript
 import { merger } from 'iptv-util'
 import fs from 'node:fs'
 
+// Load M3U playlist files from the filesystem
+const playlist1 = fs.readFileSync('playlist1.m3u', 'utf8')
+const playlist2 = fs.readFileSync('playlist2.m3u', 'utf8')
 
-// Load multiple M3U files
-const playlist1 = fs.readFileSync('playlist1.m3u', 'utf8');
-const playlist2 = fs.readFileSync('playlist2.m3u', 'utf8');
-
+// Array of M3U content strings
 const textArr = [
   playlist1,
   playlist2
 ]
 
+// Array of M3U playlist URLs
 const urlArr = [
-'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk.m3u',
-'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_sportstribal.m3u'
+  'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk.m3u',
+  'https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_sportstribal.m3u'
 ]
 
-// Merger return Playlists object
-const playlist1 = await merger([playlist1, playlist2])
-const playlist2 = await merger(...textArr)
-const playlist3 = await merger(...urlArr)
-  
+// Merge multiple playlists into a single Playlist object
+const mergedPlaylist1 = await merger(playlist1, playlist2) // Merge two local playlists
+const mergedPlaylist2 = await merger(...textArr) // Merge from text array
+const mergedPlaylist3 = await merger(...urlArr) // Merge from URL array
+
+// Convert merged playlists to M3U text format
+const text1 = mergedPlaylist1.toText()
+const text2 = mergedPlaylist2.toText()
+const text3 = mergedPlaylist3.toText()
+
+// Save merged playlists to separate M3U files
+fs.writeFileSync('mergedPlaylist1.m3u', text1, 'utf8')
+fs.writeFileSync('mergedPlaylist2.m3u', text2, 'utf8')
+fs.writeFileSync('mergedPlaylist3.m3u', text3, 'utf8')
+
+// Check merged playlist for valid streams and create a cleaned Playlist object
+const cleanPlaylist = await mergedPlaylist1.check()
+
+// Convert cleaned playlist to M3U text format (online links only)
+const cleanText = cleanPlaylist.toText()
 ```
 
 ## Test
