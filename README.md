@@ -19,12 +19,14 @@
    - **`merger`**: Assumed to combine multiple M3U playlists into one, handling duplicates or formatting.   
 
 ## Similar Packages
-- [x] **[@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist)**  Fails to handle some M3U formats, lacking essential features like merging and validation.
-- [x] **[iptv-playlist-parser](https://www.npmjs.com/package/iptv-playlist-parser)** Some parsing bugs, offering no generation and validation capabilities.
-- [x] **[esx-iptv-playlist-parser](https://www.npmjs.com/package/esx-iptv-playlist-parser)** A buggy, untested mess with no recent updates. 
-- [x] **[iptv-checker](https://www.npmjs.com/package/iptv-checker)** Crippled by FFmpeg dependency, missing parsing and generation. 
-- [x] **[iptv-playlist-generator](https://www.npmjs.com/package/iptv-playlist-generator)** Incompatible with its own parser, missing validation. 
-- [x] **[iptv-checker-module](https://www.npmjs.com/package/iptv-checker-module)** It’s a clunky, single-purpose module.
+> I developed iptv-util to overcome the limitations of existing packages, which suffer from parsing errors, missing features and heavy dependencies.   
+
+❌ **[@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist)**  Fails to handle some M3U formats, lacking essential features like merging and validation.  
+❌ **[iptv-playlist-parser](https://www.npmjs.com/package/iptv-playlist-parser)** Some parsing bugs, offering no generation and validation capabilities.  
+❌ **[esx-iptv-playlist-parser](https://www.npmjs.com/package/esx-iptv-playlist-parser)** A buggy, untested mess with no recent updates.   
+❌ **[iptv-checker](https://www.npmjs.com/package/iptv-checker)** Crippled by FFmpeg dependency, missing parsing and generation.   
+❌ **[iptv-playlist-generator](https://www.npmjs.com/package/iptv-playlist-generator)** Incompatible with its own parser, missing validation.   
+❌ **[iptv-checker-module](https://www.npmjs.com/package/iptv-checker-module)** It’s a clunky, single-purpose module.
 
 ### Performance
 | Package                  |   Ops/sec   | Min (ms) | Max (ms) | Mean (ms) | p75 (ms) | p99 (ms) | RME   |
