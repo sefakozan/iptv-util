@@ -27,12 +27,14 @@ node_modules/
 .eslintrc
 .prettierrc
 vitest.config.js
+vite.config.js
 package-lock.json
 
 # Dokümantasyon ve diğer dosyalar
 docs/
 examples/
 logo.png
+CONTRIBUTING.md
 
 # Geçici dosyalar
 *.swp
