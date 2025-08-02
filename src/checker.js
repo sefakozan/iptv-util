@@ -12,6 +12,12 @@ export async function checker (url) {
     })
     if (response.status !== 200) {
       return false
+    } else {
+      // const headers = response.headers
+      // console.log('Access-Control-Allow-Origin:', headers['access-control-allow-origin'])
+      // console.log('Access-Control-Allow-Methods:', headers['access-control-allow-methods'])
+      // console.log('Access-Control-Allow-Headers:', headers['access-control-allow-headers'])
+      // console.log('Access-Control-Max-Age:', headers['access-control-max-age'])
     }
   } catch (error) {
     return false
