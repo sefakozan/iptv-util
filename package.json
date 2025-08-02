@@ -4,13 +4,16 @@
   "description": "iptv utilities",
   "keywords": [
     "iptv",
-    "playlist",
     "m3u",
     "m3u8",
-    "m3u parser",
-    "m3u generator",
-    "iptv checker",
-    "m3u checker"
+    "hls",
+    "hls-parser",
+    "hls-playlist",
+    "iptv-playlist",
+    "m3u-parser",
+    "m3u-generator",
+    "iptv-checker",
+    "m3u-checker"
   ],
   "homepage": "https://github.com/sefakozan/iptv-util#readme",
   "bugs": {
@@ -18,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sefakozan/iptv-util.git"
+    "url": "https://github.com/sefakozan/iptv-util.git"
   },
   "license": "Apache-2.0",
   "author": "Sefa Kozan",

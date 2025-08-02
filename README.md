@@ -1,16 +1,22 @@
-# iptv-util
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
+    <img alt="Playlist. TypeScript tools for working with M3U playlist data." src="logo.png">
+  </picture>
 
-**Pure javascript cross-platform module to manage m3u iptv playlist**
+[![npm downloads](https://img.shields.io/npm/dw/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
+[![npm version](https://img.shields.io/npm/v/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
+[![License](https://img.shields.io/npm/l/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
+</div>
+
+
+> **Pure Javascript cross-platform module to manage m3u iptv playlist**
 
 **Functionalities**:
    - **`parser`**: Assumed to parse an M3U file string into a structured JSON format.
    - **`generator`**: `Playlist` and `Link` classes for generating M3U playlists. 
    - **`checker`**: Assumed to validate URLs in an M3U playlist, returning their status (e.g., online, ofline).
-   - **`merger`**: Assumed to combine multiple M3U playlists into one, handling duplicates or formatting.
-
-[![npm downloads](https://img.shields.io/npm/dw/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
-[![npm version](https://img.shields.io/npm/v/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
-[![License](https://img.shields.io/npm/l/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
+   - **`merger`**: Assumed to combine multiple M3U playlists into one, handling duplicates or formatting.   
 
 ## Similar Packages
 * [@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist) has parsing error
@@ -19,14 +25,41 @@
 * [iptv-checker](https://www.npmjs.com/package/iptv-checker) using native binary
 * [iptv-playlist-generator](https://www.npmjs.com/package/iptv-playlist-generator) not compatiple with own parser
 
+
+### Performance
+| Package                  |   Ops/sec   | Min (ms) | Max (ms) | Mean (ms) | p75 (ms) | p99 (ms) | p995 (ms) | p999 (ms) | RME   |
+|--------------------------|---------|----------|----------|-----------|----------|----------|-----------|-----------|-------|
+| **iptv-util**                | **3.3648**  | **287.17**   | **318.69**   | **297.19**    | **306.11**   | **318.69**   | **318.69**    | **318.69**    | **±2.56%**|
+| @iptv/playlist           | 0.8647  | 1093.79  | 1210.04  | 1156.40   | 1188.41  | 1210.04  | 1210.04   | 1210.04   | ±2.22%|
+| iptv-playlist-parser     | 2.6438  | 366.59   | 396.95   | 378.24    | 383.14   | 396.95   | 396.95    | 396.95    | ±1.81%|
+| esx-iptv-playlist-parser | 1.7687  | 548.36   | 587.98   | 565.39    | 571.14   | 587.98   | 587.98    | 587.98    | ±1.39%|
+
+#### Benchmark Summary
+
+- **iptv-util** - test/main.bench.js
+  - 1.27x faster than iptv-playlist-parser
+  - 1.90x faster than esx-iptv-playlist-parser
+  - 3.89x faster than @iptv/playlist
+
+
 ## Installation
-`npm install iptv-util`
+
+```bash
+# npm
+npm install iptv-util
+
+# pnpm
+pnpm add iptv-util
+
+# yarn
+yarn add iptv-util
+```
 
 ## Usage
 
 The `iptv-util` library provides tools to parse, generate, check, and merge IPTV M3U playlists. Below are examples demonstrating how to use the main functionalities: `parser`, `Playlist` and `Link` for generating playlists, `checker` for validating links, and `merger` for combining multiple playlists.
 
-#### Parser
+### Parser
 Use the parser function to parse an M3U playlist file into a structured format.
 
 
@@ -51,7 +84,7 @@ const onlineOnly = playlist.toText()
 
 ```
 
-#### Generator
+### Generator
 Use the Playlist and Link classes to create a new M3U playlist programmatically.
 
 
@@ -86,7 +119,7 @@ console.log('Generated M3U:', m3uText);
 fs.writeFileSync('generated-playlist.m3u', m3uText);
 ```
 
-#### Checker
+### Checker
 Use the checker function to validate the URLs in an M3U playlist.
 
 ```js
@@ -112,7 +145,7 @@ const offlineArr = cleanPlaylist.offline;
 const onlineArr = cleanPlaylist.links;
 ```
 
-#### Merger
+### Merger
 Use the merger function to combine multiple M3U playlists into a single playlist.
 
 ```js
