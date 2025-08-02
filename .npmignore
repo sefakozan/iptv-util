@@ -29,6 +29,7 @@ node_modules/
 vitest.config.js
 vite.config.js
 package-lock.json
+biome.json
 
 # Dokümantasyon ve diğer dosyalar
 docs/

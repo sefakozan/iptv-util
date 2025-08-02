@@ -1,25 +1,24 @@
 {
-    "standard.autoFixOnSave": true,
-    "standard.enable": true,
-    "standard.validate": [
-        "javascript"
-    ],
-    "standard.options": {
-        "globals": [
-            "$",
-            "jQuery",
-            "fetch",
-            "requestAnimationFrame"
-        ],
-        "ignore": [
-            "node_modules/**"
-        ]
-    },
-    "standard.workingDirectories": [
-        "src/**/*.js",
-        "example/**/*.js"
-    ],
-    "files.autoSave": "onFocusChange",
-    "editor.formatOnSave": false,
-    "editor.tabSize": 2
+	"files.autoSave": "onFocusChange",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit"
+	},
+	"editor.tabSize": 2,
+	"editor.defaultFormatter": "biomejs.biome",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }
