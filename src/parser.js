@@ -1,10 +1,13 @@
-import { Playlist, Link } from "./generator.js";
+import { Link, Playlist } from "./generator.js";
 
 export function parser(text, light = false) {
 	const json = textParser(text);
 
 	const playlist = new Playlist();
-	playlist.header = json.header;
+	playlist.header = {
+		"x-tvg-url": json.header["x-tvg-url"],
+		"url-tvg": json.header["url-tvg"],
+	};
 
 	for (const linkItem of json.links) {
 		const link = new Link(linkItem.url);
