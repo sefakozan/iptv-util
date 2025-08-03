@@ -15,7 +15,7 @@
 [![License](https://img.shields.io/npm/l/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
 </div>
 
-> **Pure JavaScript, Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists**
+> **Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists**
 
 **Functionalities**:
    - **`parser`**: Assumed to parse an M3U file string into a structured JSON format.
