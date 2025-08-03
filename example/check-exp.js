@@ -1,5 +1,3 @@
-import { checker } from "../src/index.js";
+import { checker } from "../src/checker.js";
 
-const res = await checker("http://185.234.111.229:8000/play/a01n");
-debugger;
-// http://185.234.111.229:8000/play/a01n
+const result1 = await checker("https://ammedia.siar.us/ammedia/live/ammedia_720p.m3u8");

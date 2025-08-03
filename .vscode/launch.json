@@ -40,6 +40,17 @@
 		{
 			"type": "node",
 			"request": "launch",
+			"name": "check-file-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}",
+			"program": "${workspaceFolder}/example/check-file-exp.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
 			"name": "merge-exp.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],

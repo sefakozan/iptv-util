@@ -1,102 +1,86 @@
-import { execFile } from "node:child_process";
-import util from "node:util";
-import { ffprobe } from "./ffprobe.js";
+// "application/vnd.apple.mpegurl", "application/dash+xml", "application/octet-stream", "application/x-mpegURL", "application/x-mpegurl"
+const contentTypeArr = ["mpegurl", "apple", "mpgurl", "/dash", "/octet", "/vnd.", "x-mpeg", "stream"];
 
-const execFilePromise = util.promisify(execFile);
-
-export async function checker(url) {
+export async function checker(url, timeout = 8000) {
 	try {
 		const response = await fetch(url, {
 			method: "HEAD",
-			signal: AbortSignal.timeout(8000),
+			signal: AbortSignal.timeout(timeout),
 			headers: {
 				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
 			},
 		});
 
-		if (response.status !== 200) {
-			return false;
-		} else {
-			// const headers = response.headers
-			// console.log('Access-Control-Allow-Origin:', headers['access-control-allow-origin'])
-			// console.log('Access-Control-Allow-Methods:', headers['access-control-allow-methods'])
-			// console.log('Access-Control-Allow-Headers:', headers['access-control-allow-headers'])
-			// console.log('Access-Control-Max-Age:', headers['access-control-max-age'])
+		if (response.status !== 200) return false;
+
+		//application/vnd.apple.mpegurl
+		//application/dash+xml
+		let contentType = response.headers.get("content-type");
+		if (!contentType) contentType = "";
+		contentType = contentType.toLowerCase();
+		//const accessControl = response.headers.get("access-control-allow-origin");
+
+		for (const ctype of contentTypeArr) {
+			if (contentType.includes(ctype)) return true;
 		}
+
+		if (contentType === "" || contentType.includes("text")) {
+			//extra islem
+			const result = await checkContent(url, timeout);
+			// console.log(`${result} ${url}`);
+			// console.log(`${result} ${contentType}`);
+			return result;
+		}
+		// console.log(url);
+		// console.log(contentType);
+		return false;
 	} catch {
 		return false;
 	}
+}
 
+async function checkContent(url, timeout = 8000) {
 	try {
-		const result = await getStreamCodecs(url);
+		const response = await fetch(url, {
+			method: "GET",
+			signal: AbortSignal.timeout(timeout),
+			headers: {
+				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+			},
+		});
 
-		if (!result.success) {
-			return false;
+		if (response.status !== 200) return false;
+
+		const text = await response.text();
+
+		if (!text.includes("#EXTM3U")) return false;
+
+		const lineArr = text.split(/\s*\r*\n+\s*/gm);
+
+		let innerUrl;
+
+		for (const line of lineArr) {
+			if (!line || line.startsWith("#")) continue;
+			innerUrl = line;
+			break;
 		}
+
+		if (!innerUrl.startsWith("http")) {
+			innerUrl = changeLastSegment(url, innerUrl);
+		}
+
+		const result = await checker(innerUrl);
+		return result;
 	} catch {
 		return false;
 	}
-
-	return true;
 }
 
-async function getStreamCodecs(url) {
-	const args = [
-		"-headers",
-		"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
-		"-v",
-		"error",
-		"-hide_banner",
-		//"-show_format",
-		"-show_format",
-		"-show_entries",
-		"format=format_name",
-		"-print_format",
-		"json",
-		"-probesize",
-		"500000", // 1000000: Limits analysis to 1 MB of data.
-		"-analyzeduration",
-		"1000000", // 2000000: Limits analysis to 2 seconds.
-		"-skip_frame",
-		"noref",
-		// "-select_streams",
-		// "v",
-		"-i",
-		url,
-	];
-
-	try {
-		const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("ffprobe timeout")), 13000));
-		const { stdout, stderr } = await Promise.race([execFilePromise(ffprobe, args), timeoutPromise]);
-
-		const data = JSON.parse(stdout);
-		let success = !stderr;
-		//const videoCodec = data.streams.find((s) => s.codec_type === "video")?.codec_name || undefined;
-		//const audioCodec = data.streams.find((s) => s.codec_type === "audio")?.codec_name || undefined;
-		const format = data.format?.format_name || undefined;
-
-		if (format) {
-			success = true;
-		}
-
-		return {
-			success,
-			format,
-		};
-	} catch (error) {
-		return {
-			success: false,
-			message: `ffprobe error: ${error.message}`,
-			details: error.stderr,
-		};
-	}
+function changeLastSegment(url, newSegment) {
+	// URL'yi bölerek son segmenti al
+	const segments = url.split("/");
+	// Son segmenti yeni segmentle değiştir
+	segments[segments.length - 1] = newSegment;
+	// Segmentleri tekrar birleştir
+	return segments.join("/");
 }
-
-// https://raw.githubusercontent.com/iptv-org/iptv/f13518cda4f3c1cca39b5f2b36306807faed5ba6/streams/tr.m3u
-
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk.m3u
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_bbc.m3u
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_pluto.m3u
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_rakuten.m3u
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_samsung.m3u
-// https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk_sportstribal.m3u

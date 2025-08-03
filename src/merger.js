@@ -1,6 +1,6 @@
-import { url2text } from "./url2text.js";
-import { parser } from "./parser.js";
 import { Playlist } from "./generator.js";
+import { parser } from "./parser.js";
+import { url2text } from "./url2text.js";
 
 export async function merger(...urls) {
 	const textArr = [];

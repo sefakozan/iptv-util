@@ -800,8 +800,8 @@ const playlist = parser(trlist);
 for (const link of playlist.links) {
 	const isExits = await checker(link.url);
 	if (isExits) {
-		console.log("okey " + link.url);
+		//console.log("okey " + link.url);
 	} else {
-		console.log("not okey " + link.url);
+		//console.log("not okey " + link.url);
 	}
 }
