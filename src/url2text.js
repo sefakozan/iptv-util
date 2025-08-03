@@ -1,4 +1,4 @@
-export async function url2text(url = "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/uk.m3u") {
+export async function url2text(url = "") {
 	if (!url.startsWith("http")) return url;
 
 	const result = await fetch(url, {

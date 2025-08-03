@@ -29,3 +29,13 @@ test("http://185.234.111.229:8000/play/a01m", async () => {
 	const result = await checker("http://185.234.111.229:8000/play/a01m");
 	expect(result).toBe(true);
 });
+
+test("https://raw.githubusercontent.com/UzunMuhalefet/streams/main/myvideo-az/tmb-tv.m3u8", async () => {
+	const result = await checker("https://raw.githubusercontent.com/UzunMuhalefet/streams/main/myvideo-az/tmb-tv.m3u8");
+	expect(result).toBe(true);
+});
+
+test("https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/dzflix/helwa.m3u8", async () => {
+	const result = await checker("https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/dzflix/helwa.m3u8");
+	expect(result).toBe(false);
+});

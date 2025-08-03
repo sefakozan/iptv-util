@@ -1,0 +1,78 @@
+//https://www.npmjs.com/package/m3u8-parser
+
+export class M3U8 {
+	/**
+	 * @param {string} text
+	 */
+	parse(text) {
+		const lineArr = text.split(/\s*\r*\n+\s*/gm);
+
+		let match;
+		for (const line of lineArr) {
+			if (!line) continue;
+
+			if (line.startsWith("#") && !line.startsWith("#EXT")) {
+				// comment
+				continue;
+			}
+
+			match = /^#EXTM3U/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXTINF:([0-9.]*)?,?(.*)?$/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-TARGETDURATION:([0-9.]*)?/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-VERSION:([0-9.]*)?/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-MEDIA-SEQUENCE:(-?[0-9.]*)?/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-DISCONTINUITY-SEQUENCE:(-?[0-9.]*)?/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-PLAYLIST-TYPE:(.*)?$/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-BYTERANGE:(.*)?$/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-ALLOW-CACHE:(YES|NO)?/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-MAP:(.*)$/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			match = /^#EXT-X-STREAM-INF:(.*)$/.exec(line);
+			if (match) {
+				continue;
+			}
+
+			debugger;
+		}
+		return this;
+	}
+}
