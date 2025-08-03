@@ -1,3 +1,9 @@
+<p align="right">
+  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/npm/v/iptv-util.svg?style=for-the-badge&color=rgb(203%2C%2056%2C%2055)" alt="version"></a>
+  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/npm/dt/iptv-util.svg?style=for-the-badge" alt="downloads"></a>
+  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/node/v/iptv-util.svg?style=for-the-badge" alt="node"></a>
+</p>
+
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
@@ -20,7 +26,7 @@
 ## Similar Packages
 > I developed iptv-util to overcome the limitations of existing packages, which suffer from parsing errors, missing features and heavy dependencies.   
 
-❌ **[@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist)**  Fails to handle some M3U formats, lacking essential features like merging and validation.  
+❌ **[@iptv/playlist](https://www.npmjs.com/package/@iptv/playlist)**  Fails to handle some M3U formats, lacking features merging and validation.  
 ❌ **[iptv-playlist-parser](https://www.npmjs.com/package/iptv-playlist-parser)** Some parsing bugs, offering no generation and validation capabilities.  
 ❌ **[esx-iptv-playlist-parser](https://www.npmjs.com/package/esx-iptv-playlist-parser)** A buggy, untested mess with no recent updates.   
 ❌ **[iptv-checker](https://www.npmjs.com/package/iptv-checker)** Crippled by FFmpeg dependency, missing parsing and generation.   

@@ -1,15 +1,19 @@
-import axios from "axios";
-const ffprobe = (await import("ffprobe-static")).default;
-const execa = (await import("execa")).execa;
+import { execFile } from "node:child_process";
+import util from "node:util";
+import { ffprobe } from "./ffprobe.js";
+
+const execFilePromise = util.promisify(execFile);
 
 export async function checker(url) {
 	try {
-		const response = await axios.head(url, {
-			timeout: 5000,
+		const response = await fetch(url, {
+			method: "HEAD",
+			signal: AbortSignal.timeout(8000),
 			headers: {
 				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
 			},
 		});
+
 		if (response.status !== 200) {
 			return false;
 		} else {
@@ -19,7 +23,7 @@ export async function checker(url) {
 			// console.log('Access-Control-Allow-Headers:', headers['access-control-allow-headers'])
 			// console.log('Access-Control-Max-Age:', headers['access-control-max-age'])
 		}
-	} catch (error) {
+	} catch {
 		return false;
 	}
 
@@ -29,7 +33,7 @@ export async function checker(url) {
 		if (!result.success) {
 			return false;
 		}
-	} catch (error) {
+	} catch {
 		return false;
 	}
 
@@ -37,47 +41,52 @@ export async function checker(url) {
 }
 
 async function getStreamCodecs(url) {
+	const args = [
+		"-headers",
+		"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
+		"-v",
+		"error",
+		"-hide_banner",
+		//"-show_format",
+		"-show_format",
+		"-show_entries",
+		"format=format_name",
+		"-print_format",
+		"json",
+		"-probesize",
+		"500000", // 1000000: Limits analysis to 1 MB of data.
+		"-analyzeduration",
+		"1000000", // 2000000: Limits analysis to 2 seconds.
+		"-skip_frame",
+		"noref",
+		// "-select_streams",
+		// "v",
+		"-i",
+		url,
+	];
+
 	try {
-		const { stdout, stderr } = await execa(
-			ffprobe.path,
-			[
-				"-headers",
-				"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
-				"-v",
-				"error",
-				"-show_streams",
-				"-hide_banner",
-				"-show_format",
-				"-print_format",
-				"json",
-				"-i",
-				url,
-			],
-			{
-				timeout: 10000,
-			},
-		);
+		const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("ffprobe timeout")), 13000));
+		const { stdout, stderr } = await Promise.race([execFilePromise(ffprobe, args), timeoutPromise]);
 
 		const data = JSON.parse(stdout);
-		let success = stderr === undefined || stderr === "";
-		const videoCodec = data.streams.find((s) => s.codec_type === "video")?.codec_name || undefined;
-		const audioCodec = data.streams.find((s) => s.codec_type === "audio")?.codec_name || undefined;
+		let success = !stderr;
+		//const videoCodec = data.streams.find((s) => s.codec_type === "video")?.codec_name || undefined;
+		//const audioCodec = data.streams.find((s) => s.codec_type === "audio")?.codec_name || undefined;
 		const format = data.format?.format_name || undefined;
 
-		if (videoCodec !== undefined || audioCodec !== undefined || format !== undefined) {
+		if (format) {
 			success = true;
 		}
 
 		return {
 			success,
-			videoCodec,
-			audioCodec,
 			format,
 		};
 	} catch (error) {
 		return {
 			success: false,
-			message: `ffprobe hatası: ${error.message}`,
+			message: `ffprobe error: ${error.message}`,
 			details: error.stderr,
 		};
 	}

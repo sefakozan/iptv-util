@@ -21,7 +21,7 @@
 			"name": "check-exp.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-			"cwd": "${workspaceFolder}/example",
+			"cwd": "${workspaceFolder}",
 			"program": "${workspaceFolder}/example/check-exp.js",
 			"smartStep": true,
 			"console": "integratedTerminal"
@@ -32,7 +32,7 @@
 			"name": "check-list-exp.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-			"cwd": "${workspaceFolder}/example",
+			"cwd": "${workspaceFolder}",
 			"program": "${workspaceFolder}/example/check-list-exp.js",
 			"smartStep": true,
 			"console": "integratedTerminal"
@@ -43,7 +43,7 @@
 			"name": "merge-exp.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-			"cwd": "${workspaceFolder}/example",
+			"cwd": "${workspaceFolder}",
 			"program": "${workspaceFolder}/example/merge-exp.js",
 			"smartStep": true,
 			"console": "integratedTerminal"
@@ -54,7 +54,7 @@
 			"name": "parse-exp.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-			"cwd": "${workspaceFolder}/example",
+			"cwd": "${workspaceFolder}",
 			"program": "${workspaceFolder}/example/parser-exp.js",
 			"smartStep": true,
 			"console": "integratedTerminal"
@@ -65,8 +65,19 @@
 			"name": "quickstart.js",
 			"autoAttachChildProcesses": true,
 			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-			"cwd": "${workspaceFolder}/example",
+			"cwd": "${workspaceFolder}",
 			"program": "${workspaceFolder}/example/quickstart.js",
+			"smartStep": true,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "ffprobe-exp.js",
+			"autoAttachChildProcesses": true,
+			"skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+			"cwd": "${workspaceFolder}",
+			"program": "${workspaceFolder}/example/ffprobe-exp.js",
 			"smartStep": true,
 			"console": "integratedTerminal"
 		}

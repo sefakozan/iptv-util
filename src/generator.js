@@ -2,16 +2,24 @@ import { checker } from "./checker.js";
 
 class Playlist {
 	#urlSet = new Set();
+	/**
+	 * @type {Link[]}
+	 */
 	offline = [];
 
-	constructor() {
-		this.header = {
-			"x-tvg-url": "",
-			"url-tvg": "",
-		};
-		this.links = [];
-	}
+	/**
+	 * @type {Link[]}
+	 */
+	links = [];
 
+	header = {
+		"x-tvg-url": "",
+		"url-tvg": "",
+	};
+
+	/**
+	 * @param {Link} link
+	 */
 	addLink(link) {
 		const exist = this.#urlSet.has(link.url);
 		if (!exist) {
@@ -54,13 +62,37 @@ class Playlist {
 }
 
 class Link {
+	url = "";
+	title = "";
+	duration = -1;
+	/** @typedef {{ "tvg-id"?: string, "tvg-name"?: string, "tvg-logo"?: string }} ExtInf */
+	extinf = {};
+	extgrp = "";
+	extvlcopt = {
+		"http-referrer": "",
+		"http-user-agent": "",
+	};
+
+	/**
+	 * @param {string} url
+	 */
 	constructor(url) {
 		this.url = url;
-		this.title = "";
-		this.duration = -1;
-		this.extinf = {};
-		this.extgrp = "";
-		this.extvlcopt = {};
+		this.extinf = {
+			"tvg-id": undefined,
+			"tvg-name": undefined,
+			"tvg-logo": undefined,
+			"tvg-url": undefined,
+			"tvg-rec": undefined,
+			"tvg-shift": undefined,
+			timeshift: undefined,
+			catchup: undefined,
+			"catchup-days": undefined,
+			"catchup-source": undefined,
+			lang: undefined,
+			"user-agent": undefined,
+			"group-title": undefined,
+		};
 	}
 }
 
