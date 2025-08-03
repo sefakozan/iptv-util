@@ -25,6 +25,6 @@ Violations of this Code of Conduct may result in temporary or permanent exclusio
 ## Scope
 This Code of Conduct applies to all project-related spaces, including the GitHub repository, issues, pull requests, and any associated communication channels.
 
-----
+---
 
 *This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.*
