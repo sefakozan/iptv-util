@@ -1,6 +1,6 @@
 {
 	"name": "iptv-util",
-	"version": "1.2.14",
+	"version": "1.2.15",
 	"engines": {
 		"node": ">=18.0.0"
 	},
@@ -18,7 +18,7 @@
 		"iptv-checker",
 		"m3u-checker"
 	],
-	"homepage": "https://github.com/sefakozan/iptv-util#readme",
+	"homepage": "https://github.com/sefakozan/iptv-util",
 	"bugs": {
 		"url": "https://github.com/sefakozan/iptv-util/issues"
 	},
