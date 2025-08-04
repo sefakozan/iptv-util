@@ -67,6 +67,10 @@ yarn add iptv-util
 The `iptv-util` library provides tools to parse, generate, check, and merge IPTV M3U playlists. Below are examples demonstrating how to use the main functionalities: `parser`, `Playlist` and `Link` for generating playlists, `checker` for validating links, and `merger` for combining multiple playlists. You can check this repo for extra usage [https://github.com/sefakozan/iptv](https://github.com/sefakozan/iptv).
 
 ## Web Usage
+
+<details>
+<summary>https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util-min.js</summary>   
+
 - https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util.js
 - https://cdn.jsdelivr.net/npm/iptv-util@1.2.12/rollup/iptv-util.js
 - https://unpkg.com/iptv-util@latest/rollup/iptv-util.js
@@ -75,6 +79,8 @@ The `iptv-util` library provides tools to parse, generate, check, and merge IPTV
 - https://cdn.jsdelivr.net/npm/iptv-util@1.2.12/rollup/iptv-util-min.js
 - https://unpkg.com/iptv-util@latest/rollup/iptv-util-min.js
 - https://unpkg.com/iptv-util@1.2.12/rollup/iptv-util-min.js
+</details>
+&nbsp;
 
 ```html
 <!doctype html>
