@@ -64,7 +64,7 @@ yarn add iptv-util
 
 ## Usage
 
-The `iptv-util` library provides tools to parse, generate, check, and merge IPTV M3U playlists. Below are examples demonstrating how to use the main functionalities: `parser`, `Playlist` and `Link` for generating playlists, `checker` for validating links, and `merger` for combining multiple playlists.
+The `iptv-util` library provides tools to parse, generate, check, and merge IPTV M3U playlists. Below are examples demonstrating how to use the main functionalities: `parser`, `Playlist` and `Link` for generating playlists, `checker` for validating links, and `merger` for combining multiple playlists. You can check this repo for extra usage [https://github.com/sefakozan/iptv](https://github.com/sefakozan/iptv).
 
 ### Parser
 Use the parser function to parse an M3U playlist file into a structured format.
