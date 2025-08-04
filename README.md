@@ -1,7 +1,5 @@
 <p align="right">
-  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/npm/v/iptv-util.svg?style=for-the-badge&color=rgb(203%2C%2056%2C%2055)" alt="version"></a>
-  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/npm/dt/iptv-util.svg?style=for-the-badge" alt="downloads"></a>
-  <a href="https://www.npmjs.org/package/iptv-util" target="_blank" rel="nofollow"><img src="https://img.shields.io/node/v/iptv-util.svg?style=for-the-badge" alt="node"></a>
+<a href="https://www.npmjs.com/package/iptv-util"><img src="https://nodei.co/npm/iptv-util.svg?style=compact"></a>
 </p>
 
 <div align="center">
@@ -10,9 +8,10 @@
     <img alt="Playlist. TypeScript tools for working with M3U playlist data." src="logo.png">
   </picture>
 
-[![npm downloads](https://img.shields.io/npm/dw/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
-[![npm version](https://img.shields.io/npm/v/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
-[![License](https://img.shields.io/npm/l/iptv-util.svg)](https://www.npmjs.com/package/iptv-util)
+[![npm downloads](https://img.shields.io/npm/dt/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![npm version](https://img.shields.io/npm/v/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![npm version](https://img.shields.io/node/v/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![License](https://img.shields.io/npm/l/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)
 </div>
 
 > **Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists**

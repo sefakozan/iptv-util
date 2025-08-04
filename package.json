@@ -1,10 +1,10 @@
 {
 	"name": "iptv-util",
-	"version": "1.2.12",
+	"version": "1.2.13",
 	"engines": {
 		"node": ">=18.0.0"
 	},
-	"description": "iptv utilities",
+	"description": "Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists",
 	"keywords": [
 		"iptv",
 		"m3u",

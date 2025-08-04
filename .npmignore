@@ -30,6 +30,7 @@ vitest.config.js
 vite.config.js
 package-lock.json
 biome.json
+tsconfig.json
 
 # Dokümantasyon ve diğer dosyalar
 docs/
