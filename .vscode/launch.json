@@ -5,6 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Open index.html",
+			"file": "${workspaceFolder}\\rollup\\index.html",
+			"runtimeArgs": ["--disable-web-security", "--user-data-dir=${workspaceFolder}\\node_modules\\chrome-user-data"]
+		},
+		{
 			"type": "node",
 			"request": "launch",
 			"name": "Debug Vitest",

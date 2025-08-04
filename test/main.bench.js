@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { describe, bench } from "vitest";
+import { bench, describe } from "vitest";
 import { parser } from "../src/index";
+
 // import { parseM3U } from '@iptv/playlist'
 // import ippParser from 'iptv-playlist-parser'
 // import esxParser from 'esx-iptv-playlist-parser'

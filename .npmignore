@@ -41,3 +41,7 @@ logo.png
 *.swp
 *.bak
 *.txt
+
+# rollup
+rollup/index.html
+rollup/README.md

@@ -1,6 +1,6 @@
 {
 	"name": "iptv-util",
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"engines": {
 		"node": ">=18.0.0"
 	},
@@ -39,7 +39,8 @@
 		"format": "biome format --write .",
 		"format:all": "biome check --write .",
 		"format:check": "biome check .",
-		"lint": "biome lint ."
+		"lint": "biome lint .",
+		"rollup": "rollup src/index.js --format iife --name \"iptv\" --file rollup/iptv-util.js"
 	},
 	"publishConfig": {
 		"provenance": true
