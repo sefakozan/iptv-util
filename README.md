@@ -1,5 +1,5 @@
 <p align="right">
-<a href="https://www.npmjs.com/package/iptv-util"><img src="https://nodei.co/npm/iptv-util.svg?style=compact"></a>
+<a href="https://www.npmjs.com/package/iptv-util"><img src="https://nodei.co/npm/iptv-util.svg?data=d"></a>
 </p>
 
 <div align="center">
