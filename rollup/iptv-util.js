@@ -1,4 +1,4 @@
-var iptv = (function (exports) {
+var IptvUtil = (function (exports) {
 	'use strict';
 
 	// "application/vnd.apple.mpegurl", "application/dash+xml", "application/octet-stream", "application/x-mpegURL", "application/x-mpegurl"

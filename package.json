@@ -40,7 +40,8 @@
 		"format:all": "biome check --write .",
 		"format:check": "biome check .",
 		"lint": "biome lint .",
-		"rollup": "rollup src/index.js --format iife --name \"iptv\" --file rollup/iptv-util.js"
+		"rollup": "rollup src/index.js --format iife --name \"IptvUtil\" --file rollup/iptv-util.js",
+		"rollup:min": "terser rollup/iptv-util.js -o rollup/iptv-util-min.js"
 	},
 	"publishConfig": {
 		"provenance": true

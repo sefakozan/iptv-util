@@ -3,20 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="iptv-util.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util-min.js"></script>
     <title>IPTV App</title>
   </head>
   <body>
 
      <script type="module">
-
-    // https://raw.githubusercontent.com/iptv-org/iptv/144be89d70c99470d1c172755f300cebfad0eed5/languages/tur.m3u
-      const result = await iptv.checker("https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8")
-
-      console.log(aa)
-
+      const result = await IptvUtil.checker("https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8")
+      console.log(result)
      </script>
-
-    
   </body>
 </html>
