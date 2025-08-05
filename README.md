@@ -8,13 +8,19 @@
     <img alt="Playlist. TypeScript tools for working with M3U playlist data." src="logo.png">
   </picture>
 
-[![npm downloads](https://img.shields.io/npm/dt/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
-[![npm version](https://img.shields.io/npm/v/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
-[![npm version](https://img.shields.io/node/v/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
-[![License](https://img.shields.io/npm/l/iptv-util.svg?style=social)](https://www.npmjs.com/package/iptv-util)
-</div>
+&nbsp;
 
-> **Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists**
+[![npm downloads](https://img.shields.io/npm/dt/iptv-util?style=plastic&color=EBEBEB)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![npm version](https://img.shields.io/npm/v/iptv-util?style=plastic&label=npm&labelColor=B9B9B9v&color=EBEBEB)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![npm version](https://img.shields.io/node/v/iptv-util?style=plastic&label=node&color=EBEBEB)](https://www.npmjs.com/package/iptv-util)&nbsp;&nbsp;&nbsp;
+[![License](https://img.shields.io/npm/l/iptv-util?style=plastic&label=license&color=EBEBEB)](https://www.npmjs.com/package/iptv-util)
+
+</div>
+&nbsp;
+
+---
+
+<h3>Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists</h3>
 
 **Functionalities**:
    - **`parser`**: Assumed to parse an M3U file string into a structured JSON format.
