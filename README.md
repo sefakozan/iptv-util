@@ -4,8 +4,8 @@
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./logo1.png">
-    <img alt="Playlist. TypeScript tools for working with M3U playlist data." src="logo1.png">
+    <source media="(prefers-color-scheme: dark)" srcset="./logo.png">
+    <img alt="Playlist. TypeScript tools for working with M3U playlist data." src="logo.png">
   </picture>
 
 &nbsp;
