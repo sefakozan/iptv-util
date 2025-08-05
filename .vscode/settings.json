@@ -1,12 +1,13 @@
 {
 	"files.autoSave": "onFocusChange",
 	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
 	"editor.codeActionsOnSave": {
-		"quickfix.biome": "always",
-		"source.organizeImports.biome": "always",
-		"source.fixAll.biome": "always"
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
 	},
-	"editor.tabSize": 2,
+	//"editor.tabSize": 2,
 	"editor.defaultFormatter": "biomejs.biome",
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
@@ -23,5 +24,6 @@
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"liveServer.settings.port": 5501
+	"liveServer.settings.port": 5501,
+	"editor.minimap.enabled": false
 }

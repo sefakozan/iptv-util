@@ -1,3 +1,7 @@
-import { checker } from "../src/checker.js";
+import { checker } from '../src/checker.js';
 
-const result1 = await checker("https://ammedia.siar.us/ammedia/live/ammedia_720p.m3u8");
+const url1 = 'https://bloomberg.com/media-manifest/streams/eu-event.m3u8';
+
+const result1 = await checker(url1);
+
+debugger;

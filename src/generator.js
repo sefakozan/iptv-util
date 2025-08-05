@@ -35,6 +35,9 @@ class Playlist {
 			counter++;
 			const isWorking = await checker(link.url);
 			if (isWorking) {
+				if (typeof isWorking === "string") {
+					link.url = isWorking; // Update the URL if the checker returns a new URL
+				}
 				cleanPlaylist.addLink(link);
 				console.log(`online: ${link.url}`);
 			} else {

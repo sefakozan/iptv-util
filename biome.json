@@ -17,12 +17,23 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noImplicitAnyLet": "warn",
+				"noDebugger": "warn",
+				"noConsole": "warn"
+			},
+			"style": {
+				"useConst": {
+					"level": "info",
+					"fix": "none"
+				}
+			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "single"
 		}
 	},
 	"assist": {

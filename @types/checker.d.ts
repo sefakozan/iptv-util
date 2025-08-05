@@ -1,1 +1,4 @@
-export function checker(url: any): Promise<boolean>;
+/**
+ * @param {string} url
+ */
+export function checker(url: string, timeout?: number): Promise<string>;
