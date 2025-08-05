@@ -18,8 +18,6 @@
 </div>
 &nbsp;
 
----
-
 <h3>Dependency-Free, Cross-Platform Module for Managing M3U IPTV Playlists</h3>
 
 **Functionalities**:
