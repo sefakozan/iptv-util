@@ -32,4 +32,3 @@ jobs:
     - run: cat /home/runner/.npm/_logs/*-debug-*.log || echo "No log file found"
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        NPM_CONFIG_LOGLEVEL: verbose
