@@ -5,41 +5,52 @@ const streamTypeArr = ['/octet', 'stream', 'video/'];
 /**
  * @param {string} url
  */
-export async function checker(url, timeout = 10000) {
+export async function checker(url, timeout = 10000, web = false) {
 	let cleanUrl = '';
 	try {
 		cleanUrl = new URL(url.trim()).href;
+
+		if (web) {
+			if (cleanUrl.startsWith('http:')) return '';
+			if (!url.includes('.m3u8') && !url.includes('.ts')) return '';
+		}
+
 		const response = await fetch(cleanUrl, {
 			method: 'HEAD',
 			signal: AbortSignal.timeout(timeout),
+			credentials: 'include',
 			headers: {
-				//mode: "cors",
-				// referer: "https://sefakozan.github.io/",
-				// "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138", "Microsoft Edge";v="138"',
-				// "sec-ch-ua-mobile": "?0",
-				// "sec-ch-ua-platform": '"Windows"',
-				'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
+				Accept: '*/*',
+				Origin: 'https://sefakozan.github.io',
+				Referer: 'https://sefakozan.github.io/',
+				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
 			},
 		});
 
 		if (response.status !== 200) return '';
 
-		//application/vnd.apple.mpegurl
-		//application/dash+xml
 		let contentType = response.headers.get('content-type');
 		const newUrl = response.url?.trim();
 		if (newUrl && newUrl !== cleanUrl) {
-			cleanUrl = newUrl; // Update the URL if the response URL is different
+			// Update the URL if the response URL is different
+			cleanUrl = newUrl;
 		}
 
 		if (!contentType) contentType = '';
 		contentType = contentType.toLowerCase();
-		// const accessControl = response.headers.get("access-control-allow-origin");
-		// const accessMetod = response.headers.get("access-control-allow-method");
 
-		// if (web && accessControl !== "*") {
-		// 	return "";
-		// }
+		const allowOrigin = response.headers.get('access-control-allow-origin');
+		//const allowCredentials = response.headers.get('access-control-allow-credentials');
+
+		// console.log(`\n\n${response.url}`);
+		// console.log(`allowOrigin: ${allowOrigin}`);
+		// console.log(`allowCredentials: ${allowCredentials}`);
+
+		if (web) {
+			if (!allowOrigin) return '';
+			if (allowOrigin !== '*' && allowOrigin !== 'https://sefakozan.github.io') return '';
+			if (response.url.startsWith('http:')) return '';
+		}
 
 		// if content type is stream return true
 		for (const ctype of streamTypeArr) {
@@ -49,7 +60,7 @@ export async function checker(url, timeout = 10000) {
 		}
 
 		if (cleanUrl.includes('.m3u8')) {
-			const isContentOk = await checkContent(cleanUrl, timeout);
+			const isContentOk = await checkContent(cleanUrl, timeout, web);
 			if (isContentOk) return cleanUrl;
 			else return '';
 		}
@@ -78,17 +89,39 @@ export async function checker(url, timeout = 10000) {
 /**
  * @param {string} url
  */
-async function checkContent(url, timeout = 5000) {
+async function checkContent(url, timeout = 5000, web = false) {
 	try {
+		if (web) {
+			if (url.startsWith('http:')) return false;
+			if (!url.includes('.m3u8') && !url.includes('.ts')) return false;
+		}
+
 		const response = await fetch(url, {
 			method: 'GET',
 			signal: AbortSignal.timeout(timeout),
+			credentials: 'include',
 			headers: {
+				Accept: '*/*',
+				Origin: 'https://sefakozan.github.io',
+				Referer: 'https://sefakozan.github.io/',
 				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
 			},
 		});
 
 		if (response.status !== 200) return false;
+
+		const allowOrigin = response.headers.get('access-control-allow-origin');
+		//const allowCredentials = response.headers.get('access-control-allow-credentials');
+
+		if (web) {
+			if (!allowOrigin) return false;
+			if (allowOrigin !== '*' && allowOrigin !== 'https://sefakozan.github.io') return false;
+			if (response.url.startsWith('http:')) return false;
+		}
+
+		// console.log(`\n\n${response.url}`);
+		// console.log(`allowOrigin: ${allowOrigin}`);
+		// console.log(`allowCredentials: ${allowCredentials}`);
 
 		const text = await response.text();
 
@@ -108,7 +141,11 @@ async function checkContent(url, timeout = 5000) {
 			innerUrl = changeLastSegment(url, innerUrl);
 		}
 
-		const result = await checker(innerUrl);
+		if (web) {
+			if (innerUrl.startsWith('http:')) return false;
+		}
+
+		const result = await checker(innerUrl, timeout, web);
 		return result !== '';
 	} catch {
 		return false;

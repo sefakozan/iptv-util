@@ -1,4 +1,4 @@
-import { checker } from "./checker.js";
+import { checker } from './checker.js';
 
 class Playlist {
 	#urlSet = new Set();
@@ -13,8 +13,8 @@ class Playlist {
 	links = [];
 
 	header = {
-		"x-tvg-url": "",
-		"url-tvg": "",
+		'x-tvg-url': '',
+		'url-tvg': '',
 	};
 
 	/**
@@ -28,27 +28,27 @@ class Playlist {
 		}
 	}
 
-	async check(max = Number.MAX_SAFE_INTEGER) {
+	async check(max = Number.MAX_SAFE_INTEGER, timeout = 10000, web = false) {
 		const cleanPlaylist = new Playlist();
 		let counter = 0;
 		for (const link of this.links) {
 			counter++;
-			const isWorking = await checker(link.url);
+			const isWorking = await checker(link.url, timeout, web);
 			if (isWorking) {
-				if (typeof isWorking === "string") {
+				if (typeof isWorking === 'string') {
 					link.url = isWorking; // Update the URL if the checker returns a new URL
 				}
 				cleanPlaylist.addLink(link);
-				console.log(`online: ${link.url}`);
+				//console.log(`online: ${link.url}`);
 			} else {
 				cleanPlaylist.offline.push(link);
-				console.log(`offline: ${link.url}`);
+				//console.log(`offline: ${link.url}`);
 			}
 			if (counter > max) break;
 		}
 
-		console.log(`offline link count: ${cleanPlaylist.offline.length}`);
-		console.log(`online link count: ${cleanPlaylist.links.length}`);
+		//console.log(`offline link count: ${cleanPlaylist.offline.length}`);
+		//console.log(`online link count: ${cleanPlaylist.links.length}`);
 		return cleanPlaylist;
 	}
 
@@ -65,15 +65,15 @@ class Playlist {
 }
 
 class Link {
-	url = "";
-	title = "";
+	url = '';
+	title = '';
 	duration = -1;
 	/** @typedef {{ "tvg-id"?: string, "tvg-name"?: string, "tvg-logo"?: string }} ExtInf */
 	extinf = {};
-	extgrp = "";
+	extgrp = '';
 	extvlcopt = {
-		"http-referrer": "",
-		"http-user-agent": "",
+		'http-referrer': '',
+		'http-user-agent': '',
 	};
 
 	/**
@@ -82,19 +82,19 @@ class Link {
 	constructor(url) {
 		this.url = url;
 		this.extinf = {
-			"tvg-id": undefined,
-			"tvg-name": undefined,
-			"tvg-logo": undefined,
-			"tvg-url": undefined,
-			"tvg-rec": undefined,
-			"tvg-shift": undefined,
+			'tvg-id': undefined,
+			'tvg-name': undefined,
+			'tvg-logo': undefined,
+			'tvg-url': undefined,
+			'tvg-rec': undefined,
+			'tvg-shift': undefined,
 			timeshift: undefined,
 			catchup: undefined,
-			"catchup-days": undefined,
-			"catchup-source": undefined,
+			'catchup-days': undefined,
+			'catchup-source': undefined,
 			lang: undefined,
-			"user-agent": undefined,
-			"group-title": undefined,
+			'user-agent': undefined,
+			'group-title': undefined,
 		};
 	}
 }
@@ -102,9 +102,9 @@ class Link {
 export { Playlist, Link };
 
 function generateText(links = [], header = {}) {
-	let output = "#EXTM3U";
+	let output = '#EXTM3U';
 	for (const attr in header) {
-		if (attr === "raw") continue;
+		if (attr === 'raw') continue;
 		const value = header[attr];
 		if (value) output += ` ${attr}="${value}"`;
 	}
@@ -112,7 +112,7 @@ function generateText(links = [], header = {}) {
 	for (const link of links) {
 		output += `\n#EXTINF:${link.duration}`;
 		for (const name in link.extinf) {
-			if (name === "raw") continue;
+			if (name === 'raw') continue;
 			const value = link.extinf[name];
 			if (value) {
 				output += ` ${name}="${value}"`;
@@ -125,7 +125,7 @@ function generateText(links = [], header = {}) {
 		}
 
 		for (const name in link.extvlcopt) {
-			if (name === "raw") continue;
+			if (name === 'raw') continue;
 			const value = link.extvlcopt[name];
 			if (value) {
 				output += `#EXTVLCOPT:${name}=${value}\n`;

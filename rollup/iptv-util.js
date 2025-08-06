@@ -8,41 +8,52 @@ var IptvUtil = (function (exports) {
 	/**
 	 * @param {string} url
 	 */
-	async function checker(url, timeout = 10000) {
+	async function checker(url, timeout = 10000, web = false) {
 		let cleanUrl = '';
 		try {
 			cleanUrl = new URL(url.trim()).href;
+
+			if (web) {
+				if (cleanUrl.startsWith('http:')) return '';
+				if (!url.includes('.m3u8') && !url.includes('.ts')) return '';
+			}
+
 			const response = await fetch(cleanUrl, {
 				method: 'HEAD',
 				signal: AbortSignal.timeout(timeout),
+				credentials: 'include',
 				headers: {
-					//mode: "cors",
-					// referer: "https://sefakozan.github.io/",
-					// "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138", "Microsoft Edge";v="138"',
-					// "sec-ch-ua-mobile": "?0",
-					// "sec-ch-ua-platform": '"Windows"',
-					'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
+					Accept: '*/*',
+					Origin: 'https://sefakozan.github.io',
+					Referer: 'https://sefakozan.github.io/',
+					'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
 				},
 			});
 
 			if (response.status !== 200) return '';
 
-			//application/vnd.apple.mpegurl
-			//application/dash+xml
 			let contentType = response.headers.get('content-type');
 			const newUrl = response.url?.trim();
 			if (newUrl && newUrl !== cleanUrl) {
-				cleanUrl = newUrl; // Update the URL if the response URL is different
+				// Update the URL if the response URL is different
+				cleanUrl = newUrl;
 			}
 
 			if (!contentType) contentType = '';
 			contentType = contentType.toLowerCase();
-			// const accessControl = response.headers.get("access-control-allow-origin");
-			// const accessMetod = response.headers.get("access-control-allow-method");
 
-			// if (web && accessControl !== "*") {
-			// 	return "";
-			// }
+			const allowOrigin = response.headers.get('access-control-allow-origin');
+			//const allowCredentials = response.headers.get('access-control-allow-credentials');
+
+			// console.log(`\n\n${response.url}`);
+			// console.log(`allowOrigin: ${allowOrigin}`);
+			// console.log(`allowCredentials: ${allowCredentials}`);
+
+			if (web) {
+				if (!allowOrigin) return '';
+				if (allowOrigin !== '*' && allowOrigin !== 'https://sefakozan.github.io') return '';
+				if (response.url.startsWith('http:')) return '';
+			}
 
 			// if content type is stream return true
 			for (const ctype of streamTypeArr) {
@@ -52,7 +63,7 @@ var IptvUtil = (function (exports) {
 			}
 
 			if (cleanUrl.includes('.m3u8')) {
-				const isContentOk = await checkContent(cleanUrl, timeout);
+				const isContentOk = await checkContent(cleanUrl, timeout, web);
 				if (isContentOk) return cleanUrl;
 				else return '';
 			}
@@ -81,17 +92,39 @@ var IptvUtil = (function (exports) {
 	/**
 	 * @param {string} url
 	 */
-	async function checkContent(url, timeout = 5000) {
+	async function checkContent(url, timeout = 5000, web = false) {
 		try {
+			if (web) {
+				if (url.startsWith('http:')) return false;
+				if (!url.includes('.m3u8') && !url.includes('.ts')) return false;
+			}
+
 			const response = await fetch(url, {
 				method: 'GET',
 				signal: AbortSignal.timeout(timeout),
+				credentials: 'include',
 				headers: {
+					Accept: '*/*',
+					Origin: 'https://sefakozan.github.io',
+					Referer: 'https://sefakozan.github.io/',
 					'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
 				},
 			});
 
 			if (response.status !== 200) return false;
+
+			const allowOrigin = response.headers.get('access-control-allow-origin');
+			//const allowCredentials = response.headers.get('access-control-allow-credentials');
+
+			if (web) {
+				if (!allowOrigin) return false;
+				if (allowOrigin !== '*' && allowOrigin !== 'https://sefakozan.github.io') return false;
+				if (response.url.startsWith('http:')) return false;
+			}
+
+			// console.log(`\n\n${response.url}`);
+			// console.log(`allowOrigin: ${allowOrigin}`);
+			// console.log(`allowCredentials: ${allowCredentials}`);
 
 			const text = await response.text();
 
@@ -111,7 +144,11 @@ var IptvUtil = (function (exports) {
 				innerUrl = changeLastSegment(url, innerUrl);
 			}
 
-			const result = await checker(innerUrl);
+			if (web) {
+				if (innerUrl.startsWith('http:')) return false;
+			}
+
+			const result = await checker(innerUrl, timeout, web);
 			return result !== '';
 		} catch {
 			return false;
@@ -146,8 +183,8 @@ var IptvUtil = (function (exports) {
 		links = [];
 
 		header = {
-			"x-tvg-url": "",
-			"url-tvg": "",
+			'x-tvg-url': '',
+			'url-tvg': '',
 		};
 
 		/**
@@ -168,20 +205,20 @@ var IptvUtil = (function (exports) {
 				counter++;
 				const isWorking = await checker(link.url);
 				if (isWorking) {
-					if (typeof isWorking === "string") {
+					if (typeof isWorking === 'string') {
 						link.url = isWorking; // Update the URL if the checker returns a new URL
 					}
 					cleanPlaylist.addLink(link);
-					console.log(`online: ${link.url}`);
+					//console.log(`online: ${link.url}`);
 				} else {
 					cleanPlaylist.offline.push(link);
-					console.log(`offline: ${link.url}`);
+					//console.log(`offline: ${link.url}`);
 				}
 				if (counter > max) break;
 			}
 
-			console.log(`offline link count: ${cleanPlaylist.offline.length}`);
-			console.log(`online link count: ${cleanPlaylist.links.length}`);
+			//console.log(`offline link count: ${cleanPlaylist.offline.length}`);
+			//console.log(`online link count: ${cleanPlaylist.links.length}`);
 			return cleanPlaylist;
 		}
 
@@ -198,15 +235,15 @@ var IptvUtil = (function (exports) {
 	}
 
 	class Link {
-		url = "";
-		title = "";
+		url = '';
+		title = '';
 		duration = -1;
 		/** @typedef {{ "tvg-id"?: string, "tvg-name"?: string, "tvg-logo"?: string }} ExtInf */
 		extinf = {};
-		extgrp = "";
+		extgrp = '';
 		extvlcopt = {
-			"http-referrer": "",
-			"http-user-agent": "",
+			'http-referrer': '',
+			'http-user-agent': '',
 		};
 
 		/**
@@ -215,27 +252,27 @@ var IptvUtil = (function (exports) {
 		constructor(url) {
 			this.url = url;
 			this.extinf = {
-				"tvg-id": undefined,
-				"tvg-name": undefined,
-				"tvg-logo": undefined,
-				"tvg-url": undefined,
-				"tvg-rec": undefined,
-				"tvg-shift": undefined,
+				'tvg-id': undefined,
+				'tvg-name': undefined,
+				'tvg-logo': undefined,
+				'tvg-url': undefined,
+				'tvg-rec': undefined,
+				'tvg-shift': undefined,
 				timeshift: undefined,
 				catchup: undefined,
-				"catchup-days": undefined,
-				"catchup-source": undefined,
+				'catchup-days': undefined,
+				'catchup-source': undefined,
 				lang: undefined,
-				"user-agent": undefined,
-				"group-title": undefined,
+				'user-agent': undefined,
+				'group-title': undefined,
 			};
 		}
 	}
 
 	function generateText(links = [], header = {}) {
-		let output = "#EXTM3U";
+		let output = '#EXTM3U';
 		for (const attr in header) {
-			if (attr === "raw") continue;
+			if (attr === 'raw') continue;
 			const value = header[attr];
 			if (value) output += ` ${attr}="${value}"`;
 		}
@@ -243,7 +280,7 @@ var IptvUtil = (function (exports) {
 		for (const link of links) {
 			output += `\n#EXTINF:${link.duration}`;
 			for (const name in link.extinf) {
-				if (name === "raw") continue;
+				if (name === 'raw') continue;
 				const value = link.extinf[name];
 				if (value) {
 					output += ` ${name}="${value}"`;
@@ -256,7 +293,7 @@ var IptvUtil = (function (exports) {
 			}
 
 			for (const name in link.extvlcopt) {
-				if (name === "raw") continue;
+				if (name === 'raw') continue;
 				const value = link.extvlcopt[name];
 				if (value) {
 					output += `#EXTVLCOPT:${name}=${value}\n`;
@@ -453,18 +490,18 @@ var IptvUtil = (function (exports) {
 		return match && match[1] ? match[1] : "";
 	}
 
-	async function url2text(url = "") {
-		if (!url.startsWith("http")) return url;
+	async function url2text(url = '') {
+		if (!url.startsWith('http')) return url;
 
 		const result = await fetch(url, {
-			method: "GET",
+			method: 'GET',
 			signal: AbortSignal.timeout(13000), // Attach the cancel signal to the request
 			headers: {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 			},
 		})
 			.then((response) => response.text()) // Get response as text
-			.catch(() => ""); // Handle errors by returning empty string
+			.catch(() => ''); // Handle errors by returning empty string
 
 		return result;
 	}

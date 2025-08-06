@@ -60,3 +60,81 @@ describe('follow redirect issue', () => {
 		expect(result).toBeFalsy();
 	});
 });
+
+describe('cross origin for vlc', () => {
+	const url1 = 'https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3';
+	const url2 = 'https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8';
+	const url3 = 'https://canlitvulusal.xyz/live/showmax/index.m3u8';
+	const url4 = 'https://canlitvulusal.xyz/live/showturk/index.m3u8';
+	const url5 = 'https://raw.githubusercontent.com/UzunMuhalefet/streams/main/myvideo-az/tmb-tv.m3u8';
+	const url6 = 'https://raycom-accdn-firetv.amagi.tv/playlist.m3u8';
+
+	it(url1, async () => {
+		const result = await checker(url1);
+		expect(result).toBeTruthy();
+	});
+
+	it(url2, async () => {
+		const result = await checker(url2);
+		expect(result).toBeTruthy();
+	});
+
+	it(url3, async () => {
+		const result = await checker(url3);
+		expect(result).toBeTruthy();
+	});
+
+	it(url4, async () => {
+		const result = await checker(url4);
+		expect(result).toBeTruthy();
+	});
+
+	it(url5, async () => {
+		const result = await checker(url5);
+		expect(result).toBeTruthy();
+	});
+
+	it(url6, async () => {
+		const result = await checker(url6);
+		expect(result).toBeTruthy();
+	});
+});
+
+describe('cross origin for web', () => {
+	const url1 = 'https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3';
+	const url2 = 'https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8';
+	const url3 = 'https://canlitvulusal.xyz/live/showmax/index.m3u8';
+	const url4 = 'https://canlitvulusal.xyz/live/showturk/index.m3u8';
+	const url5 = 'https://raw.githubusercontent.com/UzunMuhalefet/streams/main/myvideo-az/tmb-tv.m3u8';
+	const url6 = 'https://raycom-accdn-firetv.amagi.tv/playlist.m3u8';
+
+	it(url1, async () => {
+		const result = await checker(url1, 10000, true);
+		expect(result).toBeFalsy();
+	});
+
+	it(url2, async () => {
+		const result = await checker(url2, 10000, true);
+		expect(result).toBeFalsy();
+	});
+
+	it(url3, async () => {
+		const result = await checker(url3, 10000, true);
+		expect(result).toBeFalsy();
+	});
+
+	it(url4, async () => {
+		const result = await checker(url4, 10000, true);
+		expect(result).toBeFalsy();
+	});
+
+	it(url5, async () => {
+		const result = await checker(url5, 10000, true);
+		expect(result).toBeFalsy();
+	});
+
+	it(url6, async () => {
+		const result = await checker(url6, 10000, true);
+		expect(result).toBeFalsy();
+	});
+});
