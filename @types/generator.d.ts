@@ -8,19 +8,19 @@ export class Playlist {
      */
     links: Link[];
     header: {
-        "x-tvg-url": string;
-        "url-tvg": string;
+        'x-tvg-url': string;
+        'url-tvg': string;
     };
     /**
      * @param {Link} link
      */
     addLink(link: Link): void;
-    check(max?: number): Promise<Playlist>;
+    check(timeout?: number, web?: boolean): Promise<Playlist>;
     toText(): string;
     toJson(): {
         header: {
-            "x-tvg-url": string;
-            "url-tvg": string;
+            'x-tvg-url': string;
+            'url-tvg': string;
         };
         links: Link[];
     };
@@ -38,7 +38,7 @@ export class Link {
     extinf: {};
     extgrp: string;
     extvlcopt: {
-        "http-referrer": string;
-        "http-user-agent": string;
+        'http-referrer': string;
+        'http-user-agent': string;
     };
 }

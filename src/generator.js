@@ -28,11 +28,9 @@ class Playlist {
 		}
 	}
 
-	async check(max = Number.MAX_SAFE_INTEGER, timeout = 10000, web = false) {
+	async check(timeout = 10000, web = false) {
 		const cleanPlaylist = new Playlist();
-		let counter = 0;
 		for (const link of this.links) {
-			counter++;
 			const isWorking = await checker(link.url, timeout, web);
 			if (isWorking) {
 				if (typeof isWorking === 'string') {
@@ -44,7 +42,6 @@ class Playlist {
 				cleanPlaylist.offline.push(link);
 				//console.log(`offline: ${link.url}`);
 			}
-			if (counter > max) break;
 		}
 
 		//console.log(`offline link count: ${cleanPlaylist.offline.length}`);

@@ -198,12 +198,10 @@ var IptvUtil = (function (exports) {
 			}
 		}
 
-		async check(max = Number.MAX_SAFE_INTEGER) {
+		async check(timeout = 10000, web = false) {
 			const cleanPlaylist = new Playlist();
-			let counter = 0;
 			for (const link of this.links) {
-				counter++;
-				const isWorking = await checker(link.url);
+				const isWorking = await checker(link.url, timeout, web);
 				if (isWorking) {
 					if (typeof isWorking === 'string') {
 						link.url = isWorking; // Update the URL if the checker returns a new URL
@@ -214,7 +212,6 @@ var IptvUtil = (function (exports) {
 					cleanPlaylist.offline.push(link);
 					//console.log(`offline: ${link.url}`);
 				}
-				if (counter > max) break;
 			}
 
 			//console.log(`offline link count: ${cleanPlaylist.offline.length}`);
