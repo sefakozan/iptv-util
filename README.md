@@ -75,13 +75,13 @@ The `iptv-util` library provides tools to parse, generate, check, and merge IPTV
 <summary>https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util-min.js</summary>   
 
 - https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util.js
-- https://cdn.jsdelivr.net/npm/iptv-util@1.2.12/rollup/iptv-util.js
+- https://cdn.jsdelivr.net/npm/iptv-util@1.3.1/rollup/iptv-util.js
 - https://unpkg.com/iptv-util@latest/rollup/iptv-util.js
-- https://unpkg.com/iptv-util@1.2.12/rollup/iptv-util.js
+- https://unpkg.com/iptv-util@1.3.1/rollup/iptv-util.js
 - https://cdn.jsdelivr.net/npm/iptv-util@latest/rollup/iptv-util-min.js
-- https://cdn.jsdelivr.net/npm/iptv-util@1.2.12/rollup/iptv-util-min.js
+- https://cdn.jsdelivr.net/npm/iptv-util@1.3.1/rollup/iptv-util-min.js
 - https://unpkg.com/iptv-util@latest/rollup/iptv-util-min.js
-- https://unpkg.com/iptv-util@1.2.12/rollup/iptv-util-min.js
+- https://unpkg.com/iptv-util@1.3.1/rollup/iptv-util-min.js
 </details>
 &nbsp;
 
