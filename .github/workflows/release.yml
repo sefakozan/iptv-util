@@ -1,0 +1,32 @@
+name: Build and Publish on Version Change
+
+on:
+  push:
+    branches:
+      - main  # Restrict to main branch
+    paths:
+      - 'package.json'
+
+permissions:
+  id-token: write  # Grants write access to id-token for provenance
+  contents: read   # Ensures the workflow can read repository contents
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '22.18.0'
+        registry-url: 'https://registry.npmjs.org/'
+    - run: npm cache clean --force
+    - run: npm i
+    - run: npm run build
+    - name: Check Version Change
+      run: |
+        git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '^package.json' && \
+        node -e "const p = require('./package.json'); console.log('New version:', p.version)" || exit 0
+    - run: npm publish --provenance
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="iptv-util.js"></script>
+    <title>IPTV App</title>
+  </head>
+  <body>
+
+     <script type="module">
+      const result = await IptvUtil.checker("https://ciner.daioncdn.net/bloomberght/bloomberght.m3u8")
+      console.log(result)
+     </script>
+  </body>
+</html>
